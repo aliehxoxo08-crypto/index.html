@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Robux Via PLUS Store</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#1a0f00,#000000);
+  color:#fff;
+  font-family:'Arial Black',Arial,sans-serif;
+  min-height:100vh;
+}
+.wrap{max-width:1200px;margin:auto;padding:20px}
+
+/* === HERO BANNER === */
+.hero-banner{
+  width:100%;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 0 40px #ff950050;
+  margin-bottom:30px;
+  border:3px solid #ffb100;
+}
+.hero-banner img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:cover;
+}
+
+/* === FEATURES === */
+.features{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:30px;
+}
+.feature{
+  background:linear-gradient(180deg,#2b1a00,#1a0f00);
+  border:2px solid #ffb100;
+  border-radius:12px;
+  padding:15px 10px;
+  text-align:center;
+  box-shadow:0 0 15px #ff950030;
+}
+.feature span{font-size:24px;display:block;margin-bottom:5px}
+.feature strong{color:#ffd000;font-size:14px}
+@media(max-width:700px){
+  .features{grid-template-columns:repeat(2,1fr)}
+}
+
+/* === PACKAGES === */
+.section-title{
+  text-align:center;
+  font-size:28px;
+  color:#ffd000;
+  text-shadow:0 0 20px #ff9500;
+  margin:40px 0 20px;
+}
+.packages-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:15px;
+  margin-bottom:40px;
+}
+.package-card{
+  background:linear-gradient(145deg,#2b1a00,#1a0f00);
+  border:2px solid #ffb100;
+  border-radius:14px;
+  padding:20px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 5px 15px #00000060,inset 0 1px 0 #ffd00030;
+}
+.package-card:hover{
+  transform:translateY(-5px) scale(1.02);
+  border-color:#ffd000;
+  box-shadow:0 10px 25px #ff950040,0 0 0 1px #ffd000;
+}
+.package-card.selected{
+  border-color:#ffd000;
+  box-shadow:0 0 20px #ffd00060;
+  background:linear-gradient(145deg,#3b2500,#251600);
+}
+.package-icon{
+  width:50px;
+  height:50px;
+  margin:0 auto 8px;
+}
+.package-rbx{
+  font-size:26px;
+  font-weight:900;
+  color:#ffd000;
+  margin-bottom:8px;
+  text-shadow:0 0 10px #ff950050;
+}
+.package-name{
+  font-size:14px;
+  color:#ffcc66;
+  margin-bottom:12px;
+}
+.package-price{
+  font-size:32px;
+  font-weight:900;
+  color:#fff;
+}
+.package-price small{font-size:14px;color:#ffcc66}
+
+/* === ORDER FORM === */
+.order-section{
+  background:linear-gradient(145deg,#2b1a00,#1a0f00);
+  border:2px solid #ffb100;
+  border-radius:16px;
+  padding:30px;
+  max-width:550px;
+  margin:0 auto 40px;
+  box-shadow:0 0 30px #ff950030;
+}
+.order-section h2{
+  text-align:center;
+  color:#ffd000;
+  margin-top:0;
+}
+.selected-info{
+  background:#3b2500;
+  border-radius:10px;
+  padding:15px;
+  text-align:center;
+  margin-bottom:20px;
+  border:1px solid #ffb100;
+}
+.selected-info strong{font-size:22px;color:#ffd000}
+label{
+  display:block;
+  margin:18px 0 8px;
+  font-weight:bold;
+  color:#ffcc66;
+}
+input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:2px solid #b37400;
+  background:#1a0f00;
+  color:#fff;
+  font-size:16px;
+}
+input:focus{outline:none;border-color:#ffd000;box-shadow:0 0 10px #ffd00040}
+.total-display{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  color:#ffd000;
+  margin:25px 0;
+  padding:15px;
+  background:#3b2500;
+  border-radius:10px;
+  border:1px solid #ffb100;
+}
+.btn{
+  width:100%;
+  border:none;
+  border-radius:10px;
+  padding:15px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.btn-primary{
+  background:linear-gradient(180deg,#ffb100,#e08c00);
+  color:#000;
+  box-shadow:0 4px 0 #996600;
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 0 #996600;
+}
+.btn-secondary{
+  background:linear-gradient(180deg,#444,#222);
+  color:#fff;
+  margin-top:10px;
+}
+.btn-secondary:hover{background:linear-gradient(180deg,#555,#333)}
+.hidden{display:none !important}
+
+/* === PAYMENT SECTION === */
+.payment-section{
+  background:linear-gradient(145deg,#2b1a00,#1a0f00);
+  border:2px solid #ffb100;
+  border-radius:16px;
+  padding:30px;
+  max-width:550px;
+  margin:0 auto;
+  box-shadow:0 0 30px #ff950030;
+}
+.payment-section h2{
+  text-align:center;
+  color:#ffd000;
+  margin-top:0;
+}
+.order-summary{
+  background:#3b2500;
+  border-radius:10px;
+  padding:20px;
+  margin:20px 0;
+  border:1px solid #ffb100;
+}
+.order-summary p{margin:8px 0}
+.order-summary strong{color:#ffd000}
+.qr-wrapper{
+  text-align:center;
+  padding:25px;
+  background:#fff;
+  border-radius:12px;
+  margin:20px 0;
+  box-shadow:0 4px 20px #00000040;
+}
+.qr-wrapper img{width:240px;height:240px;object-fit:contain;border-radius:6px}
+.pay-amount {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 900;
+  color: #ffd000;
+  margin: 25px 0 10px;
+}
+
+
+
+.instructions{
+  background:#3b2500;
+  border-radius:10px;
+  padding:20px;
+  margin:20px 0;
+  border:1px solid #ffb100;
+}
+.instructions h4{color:#ffd000;margin-top:0}
+.instructions ol{margin:0;padding-left:20px}
+.instructions li{margin:8px 0;color:#ffcc99}
+
+footer{
+  text-align:center;
+  color:#996600;
+  padding:30px;
+  font-size:14px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 🖼️ BANNER SECTION -->
+  <div class="hero-banner">
+    <img src="robux-banner.jpg" alt="Robux For Sale — Trusted Seller" onerror="this.style.display='none'">
+    <!-- 💡 Upload your poster as robux-banner.jpg to GitHub -->
+  </div>
+
+  <!-- ⚡ FEATURES -->
+  <div class="features">
+    <div class="feature"><span>⚡</span><strong>FAST DELIVERY</strong></div>
+    <div class="feature"><span>🛡️</span><strong>SAFE & SECURE</strong></div>
+    <div class="feature"><span>✅</span><strong>TRUSTED SELLER</strong></div>
+    <div class="feature"><span>👑</span><strong>100% LEGIT</strong></div>
+  </div>
+
+  <!-- 🎁 PACKAGES -->
+  <h2 class="section-title">🎁 SELECT YOUR PACKAGE</h2>
+  <div class="packages-grid" id="packagesGrid"></div>
+
+  <!-- 📝 ORDER FORM -->
+  <div class="order-section hidden" id="orderSection">
+    <button class="btn btn-secondary" onclick="backToPackages()">← Choose Another Package</button>
+    
+    <h2>📝 ORDER DETAILS</h2>
+    
+    <div class="selected-info">
+      You selected: <strong id="selectedName">—</strong>
+    </div>
+    
+    <label>Roblox Username *</label>
+    <input id="username" placeholder="Enter your Roblox username">
+    
+    <label>Display Name (optional)</label>
+    <input id="displayName" placeholder="Name or message">
+    
+    <label>Quantity</label>
+    <input id="qty" type="number" min="1" value="1" oninput="updateTotal()">
+    
+    <div class="total-display">
+      TOTAL: <span id="totalPrice">₱0</span>
+    </div>
+    
+    <button class="btn btn-primary" onclick="placeOrder()">✅ PLACE ORDER</button>
+  </div>
+
+  <!-- 💳 PAYMENT SECTION -->
+  <div class="payment-section hidden" id="paymentSection">
+    <h2>💳 PAYMENT — GCash / InstaPay</h2>
+    
+    <div class="order-summary">
+      <h3 style="color:#ffd000;text-align:center;margin-top:0;">📋 ORDER SUMMARY</h3>
+      <p><strong>Username:</strong> <span id="o-username"></span></p>
+      <p><strong>Display Name:</strong> <span id="o-display"></span></p>
+      <p><strong>Package:</strong> <span id="o-package"></span></p>
+      <p><strong>Quantity:</strong> <span id="o-qty"></span></p>
+      <p><strong>Total Amount:</strong> <span id="o-total" style="color:#ffd000; font-size:20px;"></span></p>
+    </div>
+
+    <div class="qr-wrapper">
+      <h3 style="color:#000;margin:0 0 15px 0;font-size:18px;">💙 Scan QR Code</h3>
+      <img src="IMG_20260917_144652.jpg" alt="GCash QR Code">
+    </div>
+    
+    <div class="pay-amount">
+      PAYMENT: <span id="pay-amount">₱0</span>
+    </div>
+    <p style="text-align:center; color:#ffcc66; margin:10px 0 25px; line-height:1.6;">
+  GCash / InstaPay • 📱 09554663247
+</p>
+
+
+    <div class="instructions">
+      <h4>📌 HOW TO PAY:</h4>
+      <ol>
+        <li>Open the <strong>GCash</strong> app</li>
+        <li>Tap <strong>Scan QR</strong> and scan the code above</li>
+        <li>Enter the amount: <strong id="instr-amount">₱0</strong></li>
+        <li>Confirm and take a screenshot of the receipt</li>
+        <li>Send the screenshot + Order Details to us</li>
+      </ol>
+      <p style="color:#ffd000; margin-top:12px;">📧 Email: aliehxoxo10@gmail.com | 📱 FB: @Ar Nel</p>
+    </div>
+
+    <button class="btn btn-secondary" onclick="copyDetails()">📋 COPY ORDER DETAILS</button>
+    <button class="btn btn-primary" style="margin-top:10px;" onclick="newOrder()">🛒 NEW ORDER</button>
+  </div>
+
+  <footer>
+    ⚡ Fast Delivery • 🛡️ Safe & Secure • 👑 Trusted Seller | Not affiliated with Roblox Corporation
+  </footer>
+</div>
+
+<script>
+// === PACKAGE DATA ===
+const packages = [
+  {rbx:50, price:33, name:'50 Robux'},
+  {rbx:100, price:65, name:'100 Robux'},
+  {rbx:150, price:98, name:'150 Robux'},
+  {rbx:200, price:130, name:'200 Robux'},
+  {rbx:250, price:163, name:'250 Robux'},
+  {rbx:300, price:195, name:'300 Robux'},
+  {rbx:350, price:228, name:'350 Robux'},
+  {rbx:400, price:260, name:'400 Robux'},
+  {rbx:450, price:293, name:'450 Robux'},
+  {rbx:500, price:325, name:'500 Robux'},
+  {rbx:1000, price:650, name:'1,000 Robux'}
+];
+
+let selectedIndex = null;
+
+// === RENDER PACKAGES ===
+const grid = document.getElementById('packagesGrid');
+packages.forEach((pkg, i) => {
+  const card = document.createElement('div');
+  card.className = 'package-card';
+  card.id = `card-${i}`;
+  card.innerHTML = `
+    <img src="images (2).jpeg" alt="Robux" class="package-icon">
+    <div class="package-rbx">${pkg.rbx} ROBUX</div>
+    <div class="package-name">${pkg.name}</div>
+    <div class="package-price">₱${pkg.price}</div>
+  `;
+  card.onclick = () => selectPackage(i);
+  grid.appendChild(card);
+});
+
+// === SELECT PACKAGE ===
+function selectPackage(i) {
+  selectedIndex = i;
+  // Highlight selected card
+  document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById(`card-${i}`).classList.add('selected');
+  
+  // Show selected package in order form
+  document.getElementById('selectedName').textContent = packages[i].name + ' — ₱' + packages[i].price;
+  
+  // Hide packages, show order form
+  document.getElementById('packagesGrid').classList.add('hidden');
+  document.querySelector('.section-title').classList.add('hidden');
+  document.getElementById('orderSection').classList.remove('hidden');
+  
+  updateTotal();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// === BACK TO PACKAGES ===
+function backToPackages() {
+  selectedIndex = null;
+  document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('packagesGrid').classList.remove('hidden');
+  document.querySelector('.section-title').classList.remove('hidden');
+  document.getElementById('orderSection').classList.add('hidden');
+  document.getElementById('paymentSection').classList.add('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// === UPDATE TOTAL ===
+function updateTotal() {
+  if (selectedIndex === null) return;
+  const qty = Math.max(1, +document.getElementById('qty').value || 1);
+  const total = packages[selectedIndex].price * qty;
+  document.getElementById('totalPrice').textContent = '₱' + total.toLocaleString();
+}
+
+// === PLACE ORDER ===
+function placeOrder() {
+  const username = document.getElementById('username').value.trim();
+  if (!username) {
+    alert('⚠️ Please enter your Roblox username!');
+    return;
+  }
+
+  const qty = Math.max(1, +document.getElementById('qty').value || 1);
+  const total = packages[selectedIndex].price * qty;
+  const displayName = document.getElementById('displayName').value.trim() || '—';
+
+  // Fill payment details
+  document.getElementById('o-username').textContent = username;
+  document.getElementById('o-display').textContent = displayName;
+  document.getElementById('o-package').textContent = packages[selectedIndex].name;
+  document.getElementById('o-qty').textContent = qty;
+  document.getElementById('o-total').textContent = '₱' + total.toLocaleString();
+  document.getElementById('pay-amount').textContent = '₱' + total.toLocaleString();
+  document.getElementById('instr-amount').textContent = '₱' + total.toLocaleString();
+
+  // Show payment section
+  document.getElementById('orderSection').classList.add('hidden');
+  document.getElementById('paymentSection').classList.remove('hidden');
+  
+  // Scroll to QR Code
+  document.querySelector('.qr-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// === COPY DETAILS ===
+function copyDetails() {
+  const details = `
+📋 ORDER DETAILS
+━━━━━━━━━━━━━━━━━━━━
+👤 Username: ${document.getElementById('o-username').textContent}
+📝 Display Name: ${document.getElementById('o-display').textContent}
+📦 Package: ${document.getElementById('o-package').textContent}
+🔢 Quantity: ${document.getElementById('o-qty').textContent}
+💰 Total: ${document.getElementById('o-total').textContent}
+━━━━━━━━━━━━━━━━━━━━
+Send this + payment screenshot to: FB: @Ar Nel
+  `;
+  navigator.clipboard.writeText(details.trim()).then(() => {
+    alert('✅ Copied successfully! Returning to packages...');
+    newOrder();
+  }).catch(() => {
+    alert('⚠️ Please copy manually instead.');
+  });
+}
+
+// === NEW ORDER ===
+function newOrder() {
+  // Reset form
+  document.getElementById('username').value = '';
+  document.getElementById('displayName').value = '';
+  document.getElementById('qty').value = 1;
+  document.getElementById('totalPrice').textContent = '₱0';
+  
+  // Go back to packages
+  backToPackages();
+}
+</script>
+</body>
+</html>
